@@ -25,9 +25,13 @@ class WizflowManager extends \yii\base\Object
 	 */
 	public $workflowBehaviorName = 'wizflowBehavior';
 	/**
-	 * @var IWorkflowSource the workflow source component to use
+	 * @var string Name of the workflow source component to use
 	 */
-	public $workflowSource;
+	public $workflowSourceName = 'workflowSource';
+	/**
+	 * @var IWorkflowSource the workflow source instance
+	 */
+	private $_ws;
 	/**
 	 *
 	 * @var string session key name used to store steps
@@ -73,10 +77,35 @@ class WizflowManager extends \yii\base\Object
 			throw new InvalidConfigException('Parameter "skeyName" must be a non-empty string');
 		}
 
+		if( empty($this->workflowSourceName) || ! is_string($this->workflowSourceName)) {
+			throw new InvalidConfigException('Parameter "workflowSourceName" must be a non-empty string');
+		}
+
+		$this->_ws = Yii::$app->get($this->getWorkflowSourceName());
+
 		$wiz =  Yii::$app->session->get($this->skeyName,null);
 		if($wiz !== null) {
 			$this->_wiz = $wiz;
 		}
+	}
+	/**
+	 * Returns the name workflow source component to use.
+	 * Note that the component must be available and registred in the Yii::$app container.
+	 *
+	 * @return string The name of the workflow source component
+	 */
+	public function getWorkflowSourceName()
+	{
+		return $this->workflowSourceName;
+	}
+
+	/**
+	 * Returns the workflow source component used by the manager
+	 * @return IWorkflowSource the workflow source component instance
+	 */
+	public function getWorkflowSource()
+	{
+		return $this->_ws;
 	}
 	/**
 	 * Creates and returns the form model instance for the status attribute.

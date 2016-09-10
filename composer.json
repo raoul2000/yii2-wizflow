@@ -1,0 +1,32 @@
+{
+	"name" : "raoul2000/yii2-wizflow",
+	"description" : "The wizard UI pattern implemented using yii2-workfl",
+	"keywords": ["yii2","extension","workflow"," wizard"],
+	"homepage" : "http://raoul2000.github.io/yii2-wizflow/guide-README.html",
+	"type" : "yii2-extension",
+	"license" : "BSD-3-Clause",
+	"support" : {
+		"issues" : "https://github.com/raoul2000/yii2-wizflow/issues",
+		"source" : "https://github.com/raoul2000/yii2-wizflow",
+		"email" : "raoul.boulard@gmail.com"
+	},
+	"minimum-stability" : "stable",
+	"require" : {
+		"php" : ">=5.4.0",
+		"yiisoft/yii2" : "*"
+	},
+	"config" : {
+		"process-timeout" : 1800
+	},
+	"autoload" : {
+		"psr-4" : {
+			"raoul2000\\wizflow\\" : "src/"
+		}
+	},
+	"authors" : [{
+			"name" : "Raoul",
+			"email" : "raoul.boulard@gmail.com",
+			"homepage" : "https://github.com/raoul2000/yii2-wizflow"
+		}
+	]
+}

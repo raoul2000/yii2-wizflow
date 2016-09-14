@@ -34,6 +34,7 @@ class WizardPlayAction extends \yii\base\Action
 	    		}
 	    	}
     	}
+      
     	$viewname = $model->getWorkflowStatus()->getMetadata('view');
     	$wizard->save();
       return $this->controller->render($viewname,[

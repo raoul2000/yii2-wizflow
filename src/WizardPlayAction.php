@@ -7,7 +7,7 @@ class WizardPlayAction extends \yii\base\Action
 {
     public $wizardManagerName = 'wizflowManager';
 
-    public function run($nav = 'next')
+    public function run($nav = 'start')
     {
       $wizard = Yii::$app->get($this->wizardManagerName);
 
@@ -36,9 +36,9 @@ class WizardPlayAction extends \yii\base\Action
     	}
     	$viewname = $model->getWorkflowStatus()->getMetadata('view');
     	$wizard->save();
-        return $this->render($viewname,[
-        	'model' => $model,
-        	'path'  => $wizard->getPath()
-        ]);
+      return $this->controller->render($viewname,[
+      	'model' => $model,
+      	'path'  => $wizard->getPath()
+      ]);
     }
 }

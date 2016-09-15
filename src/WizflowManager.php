@@ -9,7 +9,6 @@ use yii\base\InvalidConfigException;
 /**
  * Implement the Wizard UI design pattern using yii2-workflow.
  *
- *
  */
 class WizflowManager extends \yii\base\Object
 {

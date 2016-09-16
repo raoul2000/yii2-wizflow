@@ -16,17 +16,17 @@ use yii\widgets\ActiveForm;
 		</div>
 		<div class="col-lg-10">
 		    <?php $form = ActiveForm::begin([
-		    	'action' => ['index','nav'=>'next']
+		    	'action' => ['','nav'=>'next']
 		    ]); ?>
-		
+
 		        <?= $form->field($model, 'name') ?>
 		        <?= $form->field($model, 'email') ?>
-		    
+
 		        <div class="form-group">
 		        	<hr/>
 		            <?= Html::submitButton('Next <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>', ['class' => 'btn btn-primary']) ?>
 		        </div>
-		        
+
 		    <?php ActiveForm::end(); ?>
 		</div>
 	</div>

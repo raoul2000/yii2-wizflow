@@ -6,6 +6,7 @@ use Yii;
 class WizardPlayAction extends \yii\base\Action
 {
     public $wizardManagerName = 'wizflowManager';
+    public $url = ['site/wizflow'];
 
     public function run($nav = 'start')
     {
@@ -14,7 +15,8 @@ class WizardPlayAction extends \yii\base\Action
     	if( $nav == 'prev' ) {
     		$model = $wizard->getPreviousStep();
     		if( $model == null) {
-    			$this->redirect(['index','nav'=>'start']);
+    			//$this->redirect(['index','nav'=>'start']);
+    			$this->redirect(array_merge($this->url, ['nav'=>'start']));
     		}
     	} elseif($nav == 'start') {
     		$model = $wizard->start();
@@ -34,12 +36,14 @@ class WizardPlayAction extends \yii\base\Action
 	    		}
 	    	}
     	}
-      
+
     	$viewname = $model->getWorkflowStatus()->getMetadata('view');
     	$wizard->save();
       return $this->controller->render($viewname,[
       	'model' => $model,
-      	'path'  => $wizard->getPath()
+      	'path'  => $wizard->getPath(),
+        'nextStepUrl' => array_merge($this->url, ['nav'=>'start']),
+        'prevStepUrl' => array_merge($this->url, ['nav'=>'prev'])
       ]);
     }
 }

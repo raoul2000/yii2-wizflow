@@ -11,3 +11,46 @@ To learn more about wizard, you'd better read [Designing Interfaces](http://desi
 The problem is simple : how can we implement a complex step-by-step process that will guide the user to its final goal ? The complexity can come from the fact that depending on the choice made by the user, he/she can be guided through different steps. In other words, we are considering a case where there would be several path (ordered sequence of steps) to go from the first step to the last one (the goal).
 
 The purpose of this Yii2 extension is to solve this problem using the workflow paradigm implemented by **yii2-workflow** extension.
+
+# Install
+
+Starting from a fresh Yii2 install based on the Basic template :
+- copy all folders in `APP_FOLDER/vendor/raoul2000/yii2-wizflow/example` into `APP_FOLDER`
+- declare the **WizflowManager** component in `APP_FOLDER/conf/web.php`
+
+```php
+'components' => [
+  'wizflowManager' => [
+    'class' => '\raoul2000\wizflow\wizflowManager'
+  ],
+  // etc ...
+```
+
+- declare the **workflowSource** component in `APP_FOLDER/conf/web.php`
+
+```php
+'components' => [
+  'workflowSource' => [
+    // use default settings : workflow definition is stored in an object and can be
+    // retrieved with the getDefinition() method
+    'class' => '\raoul2000\workflow\source\file\WorkflowFileSource'
+  ],
+// etc ...
+```
+
+- add a new action in `APP_FOLDER/controllers/SiteController.php`
+
+```php
+public function actions()
+{
+    return [
+      // other actions ...
+        'wizflow' => [
+            'class' => '\raoul2000\wizflow\WizardPlayAction'
+        ],
+    ];
+}
+```
+
+- navigate to [http://host/index.php?r=site/wizflow](http://host/index.php?r=site/wizflow)
+- enjoy

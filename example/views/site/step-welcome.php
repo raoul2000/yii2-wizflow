@@ -15,6 +15,9 @@ use yii\widgets\ActiveForm;
 			<hr/>
 		</div>
 		<div class="col-lg-10">
+			<div class="alert alert-info">
+				Let's start by introducing each other. I am <b>wizflow</b>, a mix between a wizard and a workflow. What about you ?
+			</div>
 		    <?php $form = ActiveForm::begin([
 		    	'action' => ['','nav'=>'next']
 		    ]); ?>

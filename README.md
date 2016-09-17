@@ -12,11 +12,14 @@ The problem is simple : how can we implement a complex step-by-step process that
 
 The purpose of this Yii2 extension is to solve this problem using the workflow paradigm implemented by **yii2-workflow** extension.
 
-# Install
+# Install Examples
 
-Starting from a fresh Yii2 install based on the Basic template :
-- copy all folders in `APP_FOLDER/vendor/raoul2000/yii2-wizflow/example` into `APP_FOLDER`
-- declare the **WizflowManager** component in `APP_FOLDER/conf/web.php`
+The *yii2-wizflow* extension comes with a set of Yii2 models, views and actions dedicated to provide a very basic wizard.
+
+Starting from a fresh Yii2 install based on the Basic template and located in folder `APP_FOLDER` :
+
+- copy all folders from `APP_FOLDER/vendor/raoul2000/yii2-wizflow/example` into `APP_FOLDER`. Example models and views are copied into your yii2 application
+- declare the **WizflowManager** component in `APP_FOLDER/conf/web.php`. This component implements all the logic between the workflow definition and model/view. It also handle the persistence layer by saving user entries into the current session.
 
 ```php
 'components' => [
@@ -26,7 +29,7 @@ Starting from a fresh Yii2 install based on the Basic template :
   // etc ...
 ```
 
-- declare the **workflowSource** component in `APP_FOLDER/conf/web.php`
+- declare the **workflowSource** component in `APP_FOLDER/conf/web.php`. This is the standard yii2-wizflow source component.
 
 ```php
 'components' => [
@@ -38,7 +41,7 @@ Starting from a fresh Yii2 install based on the Basic template :
 // etc ...
 ```
 
-- add a new action in `APP_FOLDER/controllers/SiteController.php`
+- add a new action in `APP_FOLDER/controllers/SiteController.php`. This action is used during wizard navigation.
 
 ```php
 public function actions()
@@ -49,6 +52,16 @@ public function actions()
             'class' => '\raoul2000\wizflow\WizardPlayAction'
         ],
     ];
+}
+```
+- add the *finish* action in `APP_FOLDER/controllers/SiteController.php`. This action is invoked at the end of the wizard, to display a summary of choices made by the user.
+
+```php
+public function actionFinish()
+{
+  return $this->render('finish',[
+    'path' => Yii::$app->wizflowManager->getPath()
+  ]);
 }
 ```
 

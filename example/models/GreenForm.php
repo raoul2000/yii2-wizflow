@@ -4,12 +4,13 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use yii\helpers\Html;
 use raoul2000\workflow\validation\WorkflowScenario;
 
 /**
  * ContactForm is the model behind the contact form.
  */
-class GreenForm extends Model
+class GreenForm extends Model implements \raoul2000\wizflow\WizflowModelInterface
 {
     public $greenStuff;
     public $status;
@@ -25,6 +26,6 @@ class GreenForm extends Model
     }
     public function summary()
     {
-    	return 'green stuff : '.$this->greenStuff;
+    	return 'green like : '. Html::encode($this->greenStuff);
     }
 }

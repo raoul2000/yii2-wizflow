@@ -20,8 +20,12 @@ use yii\widgets\ActiveForm;
 			?>
 		</div>
 		<div class="col-lg-10">
+			<div class="alert alert-info">
+				To know more about you, I would like you tell me what is your favorite color.
+			</div>
+
 		    <?php $form = ActiveForm::begin([
-		    	'action' => ['','nav'=>'next']
+		    	'action' => ['','nav'=>'next'],
 		    ]); ?>
 
 		        <?= $form->field($model, 'favoriteColor')->radioList([

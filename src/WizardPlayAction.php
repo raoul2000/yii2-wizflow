@@ -6,7 +6,8 @@ use Yii;
 class WizardPlayAction extends \yii\base\Action
 {
     public $wizardManagerName = 'wizflowManager';
-    public $url = ['site/wizflow'];
+    public $url = ['wizflow'];
+    public $urlFinish = ['finish'];
 
     public function run($nav = 'start')
     {
@@ -15,35 +16,36 @@ class WizardPlayAction extends \yii\base\Action
     	if( $nav == 'prev' ) {
     		$model = $wizard->getPreviousStep();
     		if( $model == null) {
-    			//$this->redirect(['index','nav'=>'start']);
     			$this->redirect(array_merge($this->url, ['nav'=>'start']));
     		}
     	} elseif($nav == 'start') {
     		$model = $wizard->start();
-    	} else {
+    	} else  {
 
     		$model = $wizard->getCurrentStep();
+        if( $model == null) {
+          	$this->controller->redirect($this->urlFinish);
+        } else {
 
-	    	if( $model->load(Yii::$app->request->post()) && $model->validate()) {
-
-	    		$wizard->updateCurrentStep($model);
-	    		// current step has been completed : save it and get next step
-	    		$model = $wizard->getNextStep();
-	    		if( $model == null) {
-	    			//we reached the last step
-	    			$wizard->save();
-	    			$this->redirect(['finish']);
-	    		}
-	    	}
+          if( $model->load(Yii::$app->request->post()) && $model->validate()) {
+            // current step has been completed : save it and get next step
+            $wizard->updateCurrentStep($model);
+            $model = $wizard->getNextStep();
+            if( $model == null) {
+              //we reached the last step : save it and go tp the finish page
+              $wizard->save();
+              $this->controller->redirect($this->urlFinish);
+            }
+          }
+        }
     	}
-
-    	$viewname = $model->getWorkflowStatus()->getMetadata('view');
-    	$wizard->save();
-      return $this->controller->render($viewname,[
-      	'model' => $model,
-      	'path'  => $wizard->getPath(),
-        'nextStepUrl' => array_merge($this->url, ['nav'=>'start']),
-        'prevStepUrl' => array_merge($this->url, ['nav'=>'prev'])
-      ]);
+      if ($model != null ) {
+        $viewname = $model->getWorkflowStatus()->getMetadata('view');
+        $wizard->save();
+        return $this->controller->render($viewname,[
+          'model' => $model,
+          'path'  => $wizard->getPath()
+        ]);
+      }
     }
 }

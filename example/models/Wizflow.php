@@ -4,6 +4,10 @@ namespace app\models;
 
 use raoul2000\workflow\source\file\IWorkflowDefinitionProvider;
 
+/**
+ * This is the workflow definition. Metadata is used at each wizard step
+ * to store model and view names.
+ */
 class Wizflow implements IWorkflowDefinitionProvider
 {
 	public function getDefinition()

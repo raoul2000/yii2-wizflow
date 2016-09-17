@@ -9,7 +9,7 @@ use raoul2000\workflow\validation\WorkflowScenario;
 /**
  * ContactForm is the model behind the contact form.
  */
-class FinalForm extends Model
+class FinalForm extends Model implements \raoul2000\wizflow\WizflowModelInterface
 {
     public $rate;
     public $status;

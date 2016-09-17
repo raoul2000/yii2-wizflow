@@ -4,11 +4,13 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use yii\helpers\Html;
+
 
 /**
  * ContactForm is the model behind the contact form.
  */
-class WelcomeForm extends  Model
+class WelcomeForm extends  Model implements \raoul2000\wizflow\WizflowModelInterface
 {
     public $name;
     public $email;
@@ -20,14 +22,12 @@ class WelcomeForm extends  Model
     public function rules()
     {
         return [
-            // name, email, subject and body are required
             [['name', 'email'], 'required'],
-            // email has to be a valid email address
             ['email', 'email'],
         ];
     }
     public function summary()
     {
-    	return 'Hi '.$this->name;
+    	return 'Hello <b>'. Html::encode($this->name) . '</b>';
     }
 }

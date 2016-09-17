@@ -6,16 +6,17 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 ?>
 <h1>We are done : Thanks ! </h1>
-<hr/>
-<p><?= Html::a('One more time ...',['','nav'=>'start']) ?></p>
 <div class="row">
-	<div class="col-lg-12">
-		<h3>Summary</h3>
+	<div class="col-md-12">
+		<h3>Let's summarize your replies : </h3>
 		<hr/>
-		<?php
+		<div class="well">
+			<?php
 			foreach($path as $step){
 				echo $step->summary().'<br/>';
 			}
-		?>
+			?>
+		</div>
+		<p><?= Html::a('Start the Wizflow one more time !!',['wizflow','nav'=>'start']) ?></p>
 	</div>
-</div>
+	</div>

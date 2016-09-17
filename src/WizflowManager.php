@@ -8,7 +8,6 @@ use yii\base\InvalidConfigException;
 
 /**
  * Implement the Wizard UI design pattern using yii2-workflow.
- *
  */
 class WizflowManager extends \yii\base\Object
 {
@@ -32,7 +31,6 @@ class WizflowManager extends \yii\base\Object
 	 */
 	private $_ws;
 	/**
-	 *
 	 * @var string session key name used to store steps
 	 */
 	public $skeyName = '_wiz';
@@ -64,7 +62,6 @@ class WizflowManager extends \yii\base\Object
 		'current' => null,
 		'path'    => []
 	];
-
 	/**
 	 * Loads existing wizard data if available.
 	 *

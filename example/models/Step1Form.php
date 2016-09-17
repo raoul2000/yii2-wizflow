@@ -9,7 +9,7 @@ use raoul2000\workflow\validation\WorkflowScenario;
 /**
  * ContactForm is the model behind the contact form.
  */
-class Step1Form extends Model
+class Step1Form extends Model implements \raoul2000\wizflow\WizflowModelInterface
 {
     public $favoriteColor;
     public $status;
@@ -20,8 +20,9 @@ class Step1Form extends Model
     public function rules()
     {
         return [
-            // name, email, subject and body are required
-            [['favoriteColor'], 'required'],
+          // name, email, subject and body are required
+          [['favoriteColor'], 'required'],
+
         	[['favoriteColor'], 'compare', 'compareValue' => 'blue', 'operator' => '==',
         		'on' =>  WorkflowScenario::enterStatus('Wizflow/blue')],
 
@@ -31,7 +32,7 @@ class Step1Form extends Model
     }
     public function summary()
     {
-    	return 'you like '.$this->favoriteColor;
+    	return 'your favorite color is '.$this->favoriteColor;
     }
 
     /**
@@ -43,6 +44,4 @@ class Step1Form extends Model
             'favoriteColor' => 'your favorite color',
         ];
     }
-
-
 }

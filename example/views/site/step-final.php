@@ -16,12 +16,16 @@ use yii\widgets\ActiveForm;
 			<?php
 				foreach($path as $step){
 					echo $step->summary().'<br/>';
-				} 
+				}
 			?>
 		</div>
 		<div class="col-lg-10">
+			<div class="alert alert-info">
+				That's intresting and we reached the end of the wizards steps. How did you like our little talk together ?
+			</div>
+
 		    <?php $form = ActiveForm::begin([
-		    	'action' => ['index']
+		    	'action' => ['', 'nav' => 'finish']
 		    ]); ?>
 
 		         <?= $form->field($model, 'rate')->radioList([

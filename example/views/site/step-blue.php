@@ -20,6 +20,10 @@ use yii\widgets\ActiveForm;
 			?>
 		</div>
 		<div class="col-lg-10">
+			<div class="alert alert-info">
+				Yes, blue is a nice color. Can you name the most beautiful thing you have ever seen with a blue color in it ?
+			</div>
+			
 		    <?php $form = ActiveForm::begin([
 		    	'action' => ['','nav'=>'next']
 		    ]); ?>

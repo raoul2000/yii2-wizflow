@@ -28,4 +28,14 @@ class BlueForm extends Model implements \raoul2000\wizflow\WizflowModelInterface
     {
     	return 'blue like : '. Html::encode($this->blueStuff);
     }
+    /**
+     * @return array customized attribute labels
+     */
+    public function attributeLabels()
+    {
+        return [
+            'greenStuff' => 'name somthing blue',
+        ];
+    }
+
 }

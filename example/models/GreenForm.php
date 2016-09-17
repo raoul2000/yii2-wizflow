@@ -28,4 +28,13 @@ class GreenForm extends Model implements \raoul2000\wizflow\WizflowModelInterfac
     {
     	return 'green like : '. Html::encode($this->greenStuff);
     }
+    /**
+     * @return array customized attribute labels
+     */
+    public function attributeLabels()
+    {
+        return [
+            'greenStuff' => 'name somthing green',
+        ];
+    }
 }

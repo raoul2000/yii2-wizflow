@@ -27,4 +27,14 @@ class FinalForm extends Model implements \raoul2000\wizflow\WizflowModelInterfac
     {
     	return 'this is : '.$this->rate;
     }
+    /**
+     * @return array customized attribute labels
+     */
+    public function attributeLabels()
+    {
+        return [
+            'rate' => 'Did you like your wizflow experience ?',
+        ];
+    }
+
 }

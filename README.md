@@ -12,6 +12,33 @@ The problem is simple : how can we implement a complex step-by-step process that
 
 The purpose of this Yii2 extension is to solve this problem using the workflow paradigm implemented by **yii2-workflow** extension.
 
+## The Wizflow Solution
+
+### Workflow Definition
+It's easy : a workflow can be viewed as a representation of all possibles steps that the user has to perform for navigate through a wizard widget. So, why not simply define a workflow representing our wizard ? We could also use the **metadata** attributes provided by *yii2-workflow* to associate some data with each steps of our wizard (each *status* of our workflow).
+
+We need :
+- the model name
+- the view name
+
+Let's see that on a very basic wizard that will ask stupid questions  to the user (like for instance *"what color do you prefer between green and blue"*) and depending on her reply, perform the corresponding transitions. On a more linear use case, we will also be able to go from one step to the other.
+
+Here is our wizflow :
+
+<img src="wizflow.png" alt="the wizflow"/>
+
+As you can see, the status *step1* is associated with a Yii2 model that contains attributes the user must select, and a Yii2 view name that represent the form to display to the user.
+
+Defining the wokflow definition for this wizflow is easy : [check this out](example/models/wizflow.php).
+
+### The Wizflow Manager
+
+Now last thing is a component able to navigate through this wizflow, based on user inputs and the current step (i.e. status). This component is the **WizflowManager**. The one provided with this extension is also responsible for path persistence, that is keep track of all successive steps the user has performed through the wizflow. A very basic session storage persistence is used.
+
+If you take a look to the *WizflowManager* code, you will see that the **getNextStep** method is in charge of providing the next status the user reached when the button *NEXT* is pushed. To define what is the next step, the *WizflowManager* perform invokes the SimpleWorkflowBehavior.getNextStatuses(true,true) which includes a validation
+
+.. to continue
+
 # Install Examples
 
 The *yii2-wizflow* extension comes with a set of Yii2 models, views and actions dedicated to provide a very basic wizard.
@@ -65,5 +92,5 @@ public function actionFinish()
 }
 ```
 
-- navigate to [http://host/index.php?r=site/wizflow](http://host/index.php?r=site/wizflow)
+- navigate to [http://hostname/index.php?r=site/wizflow](http://host/index.php?r=site/wizflow)
 - enjoy

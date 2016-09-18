@@ -23,9 +23,9 @@ We need :
 
 Let's see that on a very basic wizard that will ask stupid questions  to the user (like for instance *"what color do you prefer between green and blue"*) and depending on her reply, perform the corresponding transitions. On a more linear use case, we will also be able to go from one step to the other.
 
-Here is our wizflow :
+Here is our *wizflow* :
 
-<img src="wizflow.png" alt="the wizflow"/>
+<img src="wizflow.png" alt="the wizflow" />
 
 As you can see, the status *step1* is associated with a Yii2 model that contains attributes the user must select, and a Yii2 view name that represent the form to display to the user.
 
@@ -33,19 +33,39 @@ Defining the wokflow definition for this wizflow is easy : [check this out](exam
 
 ### The Wizflow Manager
 
-Now last thing is a component able to navigate through this wizflow, based on user inputs and the current step (i.e. status). This component is the **WizflowManager**. The one provided with this extension is also responsible for path persistence, that is keep track of all successive steps the user has performed through the wizflow. A very basic session storage persistence is used.
+Now last thing is a component able to navigate through this wizflow, based on user inputs and the current step (i.e. status). This component is the **WizflowManager**. The one provided with this extension is also responsible for path persistence, that is keep track of all successive steps the user has performed through the wizflow (a very basic session storage persistence is implemented).
 
-If you take a look to the *WizflowManager* code, you will see that the **getNextStep** method is in charge of providing the next status the user reached when the button *NEXT* is pushed. To define what is the next step, the *WizflowManager* perform invokes the SimpleWorkflowBehavior.getNextStatuses(true,true) which includes a validation
+If you take a look to the *WizflowManager* code, you will see that the **getNextStep** method is in charge of providing the next status the user will reach when the button *NEXT* is pushed. To define what is the next step, the *WizflowManager* invokes the `SimpleWorkflowBehavior.getNextStatuses(true,true)` method which includes model validation. If more than one next step (next status) is available, the first one is used: **it is the developper responsability to make sure that validation rules and transitions only allow one next step**.
 
-.. to continue
+In the example included in the *yii-wizflow* extension the workflow above is configured. This workflow includes a branching between *step1* and the *blue* or *green* status. Depending on the user input, the validation rules must be exclusive in order to only select on possible destination :
+
+- if the user select "blue" as favorite color, the nxt step is "blue"
+- if the user select "green" as favorite color, the nxt step is "green"
+
+That's the way brnching in handled : validation rules applied at a given step should be configured in order to select **only one destination** as the *next step*. Again, this is developer responsability to ensure this is done.
 
 # Install Examples
 
-The *yii2-wizflow* extension comes with a set of Yii2 models, views and actions dedicated to provide a very basic wizard.
+The *yii2-wizflow* extension comes with a set of Yii2 models, controller and views dedicated to override the **basic Yii2 application template** and demonstrate yii-wizflow in action.
 
-Starting from a fresh Yii2 install based on the Basic template and located in folder `APP_FOLDER` :
+Here is a summary of commands to run to install the example Wizflow application. You'll find a detailed description below.
 
-- copy all folders from `APP_FOLDER/vendor/raoul2000/yii2-wizflow/example` into `APP_FOLDER`. Example models and views are copied into your yii2 application
+```
+composer global require "fxp/composer-asset-plugin:~1.1.1"
+composer create-project yiisoft/yii2-app-basic wizflow 2.0.9
+cd wizflow
+composer require raoul2000/yii2-wizflow:@dev
+cp vendor/raoul2000/yii2-wizflow/example/* .
+```
+
+To install this demo app you must :
+
+- create a new yii2 application based on the **basic** template. To do so, follow [Yii2 installation guide](http://www.yiiframework.com/download/)
+- install the *yii2-wizflow* extension
+- override all folders at the root of your yii2 app with the ones provided in `vendor/raoul2000/yii2-wizflow/example`
+
+If you already have a running Yii2 application based on the *basic* template, here are the steps you can perform manually:
+
 - declare the **WizflowManager** component in `APP_FOLDER/conf/web.php`. This component implements all the logic between the workflow definition and model/view. It also handle the persistence layer by saving user entries into the current session.
 
 ```php
@@ -67,7 +87,6 @@ Starting from a fresh Yii2 install based on the Basic template and located in fo
   ],
 // etc ...
 ```
-
 - add a new action in `APP_FOLDER/controllers/SiteController.php`. This action is used during wizard navigation.
 
 ```php

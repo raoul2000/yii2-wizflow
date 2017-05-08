@@ -1,6 +1,8 @@
 THIS IS A **PROOF OF CONCEPT** THAT DEMONSTRATE HOW TO IMPLEMENT THE WIZARD UI PATTERN ON TOP OF THE **YII2-WORKFLOW** EXTENSION.
 
-For more information about **yii2-workflow** please refer to the [User Guide](http://raoul2000.github.io/yii2-workflow/).
+**For the TLDR ones, checkout the [demo](http://raoul2000.good-gamer.net/index.php?r=workflow/wizflow/init).**
+
+Need more information about **yii2-workflow** please refer to the [User Guide](http://raoul2000.github.io/yii2-workflow/).
 
 
 # A Wizard Implementation
@@ -13,7 +15,7 @@ To learn more about wizard, see [Designing Interfaces](http://designinginterface
 
 The problem is simple : how can we implement a complex step-by-step process that will guide the user to its final goal ? The complexity can come from the fact that depending on the choice made by the user, he/she can be guided through different steps (conditional branching). In other words, we are considering a case where there would be several path (ordered sequence of steps) to go from the first step to the last one (the goal).
 
-The purpose of this Yii2 extension is to solve this problem using the workflow paradigm implemented by **yii2-workflow** extension. 
+The purpose of this Yii2 extension is to solve this problem using the workflow paradigm implemented by **yii2-workflow** extension.
 
 ## The Wizflow Solution
 

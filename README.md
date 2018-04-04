@@ -1,6 +1,6 @@
 THIS IS A **PROOF OF CONCEPT** THAT DEMONSTRATE HOW TO IMPLEMENT THE WIZARD UI PATTERN ON TOP OF THE **YII2-WORKFLOW** EXTENSION.
 
-**For the TLDR ones, checkout the [demo](http://raoul2000.good-gamer.net/index.php?r=workflow/wizflow/init).**
+**For the TLDR ones, checkout the [demo](http://s172418307.onlinehome.fr/site/raoul2000/prod/web/index.php?r=workflow/wizflow/init).**
 
 Need more information about **yii2-workflow** please refer to the [User Guide](http://raoul2000.github.io/yii2-workflow/).
 

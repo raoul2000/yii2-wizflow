@@ -255,7 +255,7 @@ class WizflowManager extends \yii\base\Object
 	 */
 	public function start()
 	{
-		$workflow = $this->workflowSource->getWorkflow('Wizflow');
+		$workflow = $this->workflowSource->getWorkflow($this->workflowBehavior['defaultWorkflowId']);
 
 		$status = $workflow->getInitialStatus();
 		$config = $status->getMetadata('model');

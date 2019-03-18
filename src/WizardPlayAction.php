@@ -16,7 +16,7 @@ class WizardPlayAction extends \yii\base\Action
     	if( $nav == 'prev' ) {
     		$model = $wizard->getPreviousStep();
     		if( $model == null) {
-    			$this->redirect(array_merge($this->url, ['nav'=>'start']));
+    			$this->controller->redirect(array_merge($this->url, ['nav'=>'start']));
     		}
     	} elseif($nav == 'start') {
     		$model = $wizard->start();

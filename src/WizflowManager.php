@@ -118,11 +118,12 @@ class WizflowManager extends \yii\base\BaseObject
 	 */
 	private function createInstance($attributes)
 	{
-		if( isset($attributes['status']) == false ) {
+        $statusAttribute = $this->getStatusAttribute();
+		if( isset($attributes[$statusAttribute]) == false ) {
 			throw new Exception('missing attribute "status"');
 		}
 
-		$status = $this->workflowSource->getStatus($attributes['status']);
+		$status = $this->workflowSource->getStatus($attributes[$statusAttribute]);
 		$config = array_merge(
 			$status->getMetadata('model'),
 			$attributes
@@ -214,8 +215,9 @@ class WizflowManager extends \yii\base\BaseObject
 			if( count($nextStatuses) != 0) {
 				foreach($nextStatuses as $info) {
 					if( $info['isValid']) {
+                        $statusAttribute = $this->getStatusAttribute();
 						// create the next step Form instance
-						$nextStep = $this->createInstance(['status' => $info['status']->getId()]);
+						$nextStep = $this->createInstance([$statusAttribute => $info['status']->getId()]);
 
 						// save it as the current step
 						$this->_wiz['current'] = $nextStep->getAttributes();
@@ -259,7 +261,9 @@ class WizflowManager extends \yii\base\BaseObject
 
 		$status = $workflow->getInitialStatus();
 		$config = $status->getMetadata('model');
-		$config['status'] =  $status->getId();
+
+        $statusAttribute = $this->getStatusAttribute();
+		$config[$statusAttribute] =  $status->getId();
 
 		$firstStep = $this->createInstance($config);
 
@@ -275,4 +279,13 @@ class WizflowManager extends \yii\base\BaseObject
 	{
 		Yii::$app->session->remove($this->skeyName);
 	}
+
+    /**
+     * Return the Status Attribute configured in the Behaviour
+     * if doesn't exist return standard "status" attribute
+     * @return mixed|string
+     */
+    private function getStatusAttribute(){
+        return (isset($this->workflowBehavior['statusAttribute'])) ? $this->workflowBehavior['statusAttribute'] : 'status';
+    }
 }
